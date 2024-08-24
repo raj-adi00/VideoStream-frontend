@@ -76,13 +76,21 @@ export class User {
 
     async logout() {
         try {
-            const user = await axios.post('users/logout', {}, { withCredentials: true })
+            const user = await axios.post('api/v1/users/logout', {}, { withCredentials: true })
             console.log(user)
             return user
         } catch (error) {
             console.log("error at logout", error)
-            this.err.message = error?.message
-            return this.err
+            if (error.response) {
+                console.log("Backend returned an error:", error.response.data.message);
+                return error.response;
+            } else if (error.request) {
+                console.log("No response received from the backend", error.request);
+                return { message: "No response from the server. Please try again later." };
+            } else {
+                console.log("Error setting up the request", error.message);
+                return { message: "Request setup error: " + error.message };
+            }
         }
     }
 
