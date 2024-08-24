@@ -105,7 +105,7 @@ const RegisterPage = () => {
                             value={formData.password}
                             onChange={handleChange}
                             style={styles.input}
-                        // required
+                        required
                         />
                     </div>
                     <div style={styles.inputGroup}>

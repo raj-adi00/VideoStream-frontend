@@ -49,15 +49,28 @@ export class User {
     }
 
 
-    async login({ ...data }) {
+    async login(formData) {
         try {
-            const user = await axios.post('/users/login', { ...data }, { withCredentials: true })
+            const user = await axios.post('api/v1/users/login', formData, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                withCredentials: true,
+            })
             console.log(user)
             return user
         } catch (error) {
-            console.log("error at login", error)
-            this.err.message = error?.message
-            return this.err
+            console.log("error at login", error.response)
+            if (error.response) {
+                console.log("Backend returned an error:", error.response.data.message);
+                return error.response;
+            } else if (error.request) {
+                console.log("No response received from the backend", error.request);
+                return { message: "No response from the server. Please try again later." };
+            } else {
+                console.log("Error setting up the request", error.message);
+                return { message: "Request setup error: " + error.message };
+            }
         }
     }
 
