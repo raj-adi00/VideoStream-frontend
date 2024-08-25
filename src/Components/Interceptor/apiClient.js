@@ -24,17 +24,28 @@ const responseInterceptor = async (error) => {
     return Promise.reject(error);
 };
 
+const requestInterceptor = async (request) => {
+    try {
+        const user = await UserSevice.getCurrentUser();
+        // console.log(user.status)
+        request.params = { ...request.params, isPublished: user.status >= 400, username: user?.data?.data?._id };
+        return request;
+    } catch (error) {
+        console.error("Error at request interceptor:", error);
+        return axios(request.originalRequest);
+    }
+};
 const apiClient_getUser = axios.create({
     baseURL: '/api/v1/users', // More general baseURL
     withCredentials: true,
 });
 
 const apiClient2 = axios.create({
-    baseURL: 'https://api2.example.com',
+    baseURL: 'api/v1/videos',
     withCredentials: true,
 });
 
 apiClient_getUser.interceptors.response.use(response => response, responseInterceptor);
-apiClient2.interceptors.response.use(response => response, responseInterceptor);
+apiClient2.interceptors.request.use(requst => requestInterceptor(requst), error => Promise.reject(error));
 
 export { apiClient_getUser, apiClient2 };

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { apiClient2 } from '../Interceptor/apiClient';
 
 
 
@@ -8,7 +9,7 @@ export class Video {
     }
     async fetchVideos() {
         try {
-            const response = await axios.get('/api/v1/videos');
+            const response = await apiClient2.get('');
             console.log('Videos fetched:', response.data);
             return response.data;
         } catch (error) {

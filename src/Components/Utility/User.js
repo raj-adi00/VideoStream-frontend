@@ -13,7 +13,7 @@ export class User {
     async getCurrentUser() {
         try {
             const currentUser = await apiClient_getUser.get('/current-user', { withCredentials: true });
-            console.log(currentUser);
+            // console.log(currentUser);
             return currentUser;
         } catch (error) {
             console.log("Error at getCurrentUser", error.response);
@@ -76,7 +76,7 @@ export class User {
 
     async logout() {
         try {
-            const user = await axios.post('api/v1/users/logout', {}, { withCredentials: true })
+            const user = await apiClient_getUser.post('/logout', {}, { withCredentials: true })
             console.log(user)
             return user
         } catch (error) {

@@ -44,19 +44,6 @@ const Login = () => {
             setMessage(null);
             setError(err.response?.data?.message || 'Something went wrong');
         }
-        // try {
-        //     const response = await axios.post('/api/v1/users/login', formData, {
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //         },
-        //         withCredentials: true,
-        //     });
-        //     setMessage(response.data.message);
-        //     setError(null);
-        // } catch (err) {
-        //     setMessage(null);
-        //     setError(err.response?.data?.message || 'Something went wrong');
-        // }
     };
 
     return (
@@ -64,12 +51,12 @@ const Login = () => {
             <div className="w-full max-w-md bg-gray-800 rounded-lg shadow-lg p-6">
                 <h2 className="text-2xl font-semibold text-white text-center">Login</h2>
                 {error && (
-                    <div className="bg-red-500 text-white p-2 rounded mt-4">
+                    <div className="bg-red-500 text-white p-2 rounded mt-4 fixed">
                         {error}
                     </div>
                 )}
                 {message && (
-                    <div className="bg-green-500 text-white p-2 rounded mt-4">
+                    <div className="bg-green-500 text-white p-2 rounded mt-4 fixed">
                         {message}
                     </div>
                 )}

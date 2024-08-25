@@ -19,6 +19,7 @@ const NavBar = ({ isLoggedIn }) => {
                 seterror(null);
                 dispatch(userLogout());
                 navigate('/');
+                window.location.reload();
             } else {
                 setMessage(null);
                 seterror(response?.data?.message || "Please retry");
