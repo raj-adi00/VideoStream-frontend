@@ -20,8 +20,12 @@ function Home() {
         setStatusCode(videoData.statusCode)
         setMessage(videoData.message)
         setAllVideo(videoData.data.videos);
+        if (videoData){
+           localStorage.setItem("allvideo", JSON.stringify(videoData.data.videos));
+          // console.log(allVideo)
+        }
         setloading(false)
-        console.log(videoData)
+        console.log(videoData.data.videos)
       } catch (error) {
         console.error('Error loading videos:', error);
         setStatusCode(videoData.statusCode || 500)
@@ -41,7 +45,7 @@ function Home() {
   // else
   return (
     <div className='flex flex-col gap-3'>
-      <div className='w-full mt-14'> Sorting algorithm</div>
+      {/* <div className='w-full mt-14'> Sorting algorithm</div> */}
       <div className='flex gap-11 flex-wrap px-3'>
         {allVideo && allVideo.map(vid =>
           <Card

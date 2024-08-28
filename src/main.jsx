@@ -8,6 +8,7 @@ import { Provider } from 'react-redux'
 import store from './Store/store.js'
 import Register from './Components/Register.jsx'
 import Login from './Components/Login.jsx'
+import VideoPage from './Components/VideoPage.jsx'
 
 const router = createBrowserRouter([{
   path: '/',
@@ -22,7 +23,10 @@ const router = createBrowserRouter([{
     },{
       path:"/login",
       element:<Login/>
-    },
+    },{
+      path:"/:video_public_id",
+      element:<VideoPage/>
+    }
   ]
 }])
 createRoot(document.getElementById('root')).render(

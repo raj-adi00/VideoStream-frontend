@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Card = ({ videoId, thumbnail, title, owner, channel_owner, createdAt, updatedAt, description, videoFile, duration, views, isPublished, video_public_id, thumbnail_public_id }) => {
-    return (
+const Card = ({ _id, thumbnail, title, owner, channel_owner, video_public_id }) => {
 
+    return (
         <div className="max-w-sm rounded-lg overflow-hidden shadow-lg bg-white dark:bg-gray-800 dark:text-gray-200 border border-gray-300 dark:border-gray-700 min-w-80 min-h-72">
-            <Link to={`/video/${videoId}`}>
+            <Link to={`/${_id}`} state={{ video_public_id }}>
                 <img className="w-full h-60 object-cover" src={thumbnail} alt={title} />
             </Link>
             <div className="px-3 py-4 overflow-hidden">
