@@ -40,12 +40,18 @@ const apiClient_getUser = axios.create({
     withCredentials: true,
 });
 
+
+const response_interceptor = axios.create({
+    baseURL: '/api/v1/', // More general baseURL
+    withCredentials: true,
+});
 const apiClient2 = axios.create({
     baseURL: 'api/v1/videos',
     withCredentials: true,
 });
 
+response_interceptor.interceptors.response.use(response => response, responseInterceptor)
 apiClient_getUser.interceptors.response.use(response => response, responseInterceptor);
 apiClient2.interceptors.request.use(requst => requestInterceptor(requst), error => Promise.reject(error));
 
-export { apiClient_getUser, apiClient2 };
+export { apiClient_getUser, apiClient2,response_interceptor };

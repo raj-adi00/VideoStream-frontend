@@ -91,7 +91,18 @@ const NavBar = ({ isLoggedIn }) => {
                         </NavLink>
                     )}
                 </div>
-                <div>
+
+                <div className='flex gap-9 justify-center items-center'>
+
+                    {isLoggedIn && <NavLink
+                        to="/upload-video"
+                        className={({ isActive }) =>
+                            isActive ? "text-blue-500" : "hover:text-gray-300"
+                        }
+                    >
+                        Upload Video
+                    </NavLink>}
+
                     {/* Toggle for dark and light theme */}
                     <button className="px-3 py-1 rounded border border-gray-300 hover:bg-gray-700 dark:bg-gray-800 dark:text-gray-300">
                         Dark/Light

@@ -9,6 +9,7 @@ import store from './Store/store.js'
 import Register from './Components/Register.jsx'
 import Login from './Components/Login.jsx'
 import VideoPage from './Components/VideoPage.jsx'
+import UploadVideoForm from './Components/UploadVideoForm.jsx'
 
 const router = createBrowserRouter([{
   path: '/',
@@ -26,6 +27,9 @@ const router = createBrowserRouter([{
     },{
       path:"/:video_public_id",
       element:<VideoPage/>
+    },{
+      path:"/upload-video",
+      element:<UploadVideoForm/>
     }
   ]
 }])
