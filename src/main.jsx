@@ -25,7 +25,7 @@ const router = createBrowserRouter([{
       path:"/login",
       element:<Login/>
     },{
-      path:"/:video_public_id",
+      path:"/:id",
       element:<VideoPage/>
     },{
       path:"/upload-video",

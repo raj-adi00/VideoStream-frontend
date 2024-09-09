@@ -47,6 +47,45 @@ export class Video {
         }
     }
 
+    async getParticularvideobyId(videoid) {
+        //   console.log(videoid)
+        try {
+            const details = await axios.get('/api/v1/videos/videoid')
+            if (details) {
+                console.log(details)
+                return details
+            }
+
+        } catch (error) {
+            console.log("error at fetching video details", error)
+        }
+    }
+
+    async getVideobyVideo_public_id(video_public_id) {
+        try {
+            const videoDetails = await axios.get(`/api/v1/videos/publicid/${video_public_id}`)
+            if (videoDetails.status < 300)
+                return videoDetails
+            else
+                return ""
+        } catch (error) {
+            console.log("Error at getting video by public id", error)
+        }
+
+    }
+
+    async deleteVideo(videoid) {
+        try {
+            const deleteStatus = await axios.delete(`/api/v1/videos/${videoid}`)
+            if (deleteStatus.status >= 400)
+                return deleteStatus
+            else
+                return deleteStatus
+        } catch (err) {
+            console.log("Error while deleting the video", err)
+            return err
+        }
+    }
 }
 const videoService = new Video();
 export default videoService
