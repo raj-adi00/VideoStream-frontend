@@ -87,17 +87,40 @@ export class Video {
         }
     }
 
-    async updateVideo(FormData,id) {
+    async updateVideo(FormData, id) {
         try {
             // console.log(FormData)
-            const updateStatus = await response_interceptor.patch(`/videos/${id}`,FormData)
+            const updateStatus = await response_interceptor.patch(`/videos/${id}`, FormData)
             console.log(updateStatus.data)
             if (updateStatus.data.statusCode < 300)
                 return updateStatus.data
             else
-                return updateStatus.data.data.message
+                return updateStatus.data.data
         } catch (error) {
             console.log("Error at updating Video", error)
+            if (error.response) {
+                console.log("Backend returned an error:", error.response.data.message);
+                return error.response;
+            } else if (error.request) {
+                console.log("No response received from the backend", error.request);
+                return { message: "No response from the server. Please try again later." };
+            } else {
+                console.log("Error setting up the request", error.message);
+                return { message: "Request setup error: " + error.message };
+            }
+        }
+    }
+
+    async changeToggleStatus(videoid, PublishStatus) {
+        try {
+            const status = await response_interceptor.patch(`/videos/toggle/publish/${videoid}`, { isPublished: PublishStatus })
+            console.log(status)
+            if (status.data.statusCode < 300)
+                return status.data
+            else
+                return status.data.data
+        } catch (error) {
+            console.log("error at updating publish status", error)
             if (error.response) {
                 console.log("Backend returned an error:", error.response.data.message);
                 return error.response;
