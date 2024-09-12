@@ -1,21 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import VideoCard from './VideoCard'; // Assuming you have a VideoCard component to display other videos
 import UserSevice from './Utility/User';
 import videoService from './Utility/Video';
+import UpdateVideoForm from './UpdateVideoForm';
 
 function VideoPage() {
     const navigate = useNavigate();
     const { id } = useParams();
     const { state } = useLocation();
     const { video_public_id } = state || {};
-
+    const [updateVideo, setUpdateVideo] = useState(false)
     const [otherVideos, setOtherVideo] = useState([]);
     const [isCurrentUserOwner, setIsCurrentUserOwner] = useState(false);
     const [videoOwner, setVideoOwner] = useState();
     const [currentUser, setCurrentUser] = useState();
     const [error, setError] = useState(''); // Error state added
-
+    const [currentVideo, setCurrentVideo] = useState({})
+    const iframeRef = useRef(null);
     useEffect(() => {
         let storedVideos = [];
 
@@ -55,15 +57,47 @@ function VideoPage() {
         videoService.getVideobyVideo_public_id(video_public_id)
             .then((res) => {
                 setVideoOwner(res?.data?.data?.owner);
-                if (currentUser === videoOwner) {
+                if (currentUser === videoOwner && res.data.data.owner && currentUser) {
                     setIsCurrentUserOwner(true);
                 }
+                setCurrentVideo(res.data.data)
             })
             .catch((err) => {
                 console.error("Error at getting current video owner", err);
                 setError('Error fetching the current video owner'); // Set error message
             });
-    }, [currentUser, videoOwner, video_public_id]);
+    }, [video_public_id, videoOwner, currentUser]);
+
+    // useEffect(() => {
+    //     const pauseVideo = () => {
+    //         console.log(1)
+    //         if (iframeRef.current) {
+    //             const message = JSON.stringify({
+    //                 event: "command",
+    //                 func: "pause",
+    //             });
+    //             iframeRef.current.contentWindow.postMessage(message, "*");
+    //         }
+    //     };
+
+    //     const playVideo = () => {
+    //         if (iframeRef.current) {
+    //             const message = JSON.stringify({
+    //                 event: "command",
+    //                 func: "play",
+    //             });
+    //             iframeRef.current.contentWindow.postMessage(message, "*");
+    //         }
+    //     };
+
+    //     // Pause video if updateVideo is true
+    //     if (updateVideo) {
+    //         pauseVideo();
+    //     } else {
+    //         // Let the user control the video otherwise
+    //         playVideo();
+    //     }
+    // }, [updateVideo]); // Dependency on updateVideo
 
     const handleDelete = async () => {
         try {
@@ -97,11 +131,17 @@ function VideoPage() {
                     {error}
                 </div>
             )}
+            {
+                updateVideo && <div className='w-full fixed top-8 z-10'><div className='mx-auto'>
+                    <UpdateVideoForm setUpdateVideo={setUpdateVideo} currentVideo={currentVideo} setError={setError} id={id} />
+                </div></div>
+            }
             <div className="flex space-x-8">
                 {/* Video Section */}
                 <div className="w-3/5">
                     <div className="video-container mb-4">
                         <iframe
+                            ref={iframeRef}
                             src={`https://player.cloudinary.com/embed/?cloud_name=dhqa8qbff&public_id=${video_public_id}&autoplay=true`} // Added autoplay parameter
                             width="640"
                             height="360"
@@ -114,12 +154,17 @@ function VideoPage() {
 
                     {isCurrentUserOwner && (
                         <div className="flex space-x-4">
-                            <button className="px-4 py-1 bg-gray-800 text-white rounded-md border border-gray-600 hover:bg-gray-700">Update</button>
-                            <button className="px-4 py-1 bg-gray-800 text-white rounded-md border border-gray-600 hover:bg-gray-700" onClick={handleDelete}>
+                            <button className="px-2 py-1 bg-gray-800 text-white rounded-md border border-gray-600 hover:bg-gray-700" onClick={() => setUpdateVideo(true)} >Update</button>
+                            <button className="px-2 py-1 bg-gray-800 text-white rounded-md border border-gray-600 hover:bg-gray-700" onClick={handleDelete}>
                                 Delete
                             </button>
                         </div>
                     )}
+                    {currentVideo && <div className='w-full border-2 border-solid rounded-lg py-2 px-1 mt-4'>
+                        <h2 className='font-bold text-lg'>{currentVideo.title}</h2>
+                        <div className='w-1/2 border-2 border-gray-500'></div>
+                        <p className='text-sm'>{currentVideo.description}</p>
+                    </div>}
                 </div>
 
                 {/* Other Videos Section */}

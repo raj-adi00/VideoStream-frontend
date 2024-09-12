@@ -3,7 +3,6 @@ import UserSevice from '../Utility/User.js';
 
 const responseInterceptor = async (error) => {
     const originalRequest = error.config;
-
     if (error.response.status === 401 && !originalRequest._retry) {
         originalRequest._retry = true;
 
@@ -42,11 +41,11 @@ const apiClient_getUser = axios.create({
 
 
 const response_interceptor = axios.create({
-    baseURL: '/api/v1/', // More general baseURL
+    baseURL: '/api/v1', // More general baseURL
     withCredentials: true,
 });
 const apiClient2 = axios.create({
-    baseURL: 'api/v1/videos',
+    baseURL: '/api/v1/videos',
     withCredentials: true,
 });
 
@@ -54,4 +53,4 @@ response_interceptor.interceptors.response.use(response => response, responseInt
 apiClient_getUser.interceptors.response.use(response => response, responseInterceptor);
 apiClient2.interceptors.request.use(requst => requestInterceptor(requst), error => Promise.reject(error));
 
-export { apiClient_getUser, apiClient2,response_interceptor };
+export { apiClient_getUser, apiClient2, response_interceptor };

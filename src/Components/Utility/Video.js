@@ -33,7 +33,7 @@ export class Video {
                 return response;
             }
         } catch (error) {
-            console.log("Error at Uploading the video");
+            console.log("Error at Uploading the video", error);
             if (error.response) {
                 console.log("Backend returned an error:", error.response.data.message);
                 return error.response;
@@ -76,7 +76,7 @@ export class Video {
 
     async deleteVideo(videoid) {
         try {
-            const deleteStatus = await axios.delete(`/api/v1/videos/${videoid}`)
+            const deleteStatus = await response_interceptor.delete(`videos/${videoid}`)
             if (deleteStatus.status >= 400)
                 return deleteStatus
             else
@@ -84,6 +84,30 @@ export class Video {
         } catch (err) {
             console.log("Error while deleting the video", err)
             return err
+        }
+    }
+
+    async updateVideo(FormData,id) {
+        try {
+            // console.log(FormData)
+            const updateStatus = await response_interceptor.patch(`/videos/${id}`,FormData)
+            console.log(updateStatus.data)
+            if (updateStatus.data.statusCode < 300)
+                return updateStatus.data
+            else
+                return updateStatus.data.data.message
+        } catch (error) {
+            console.log("Error at updating Video", error)
+            if (error.response) {
+                console.log("Backend returned an error:", error.response.data.message);
+                return error.response;
+            } else if (error.request) {
+                console.log("No response received from the backend", error.request);
+                return { message: "No response from the server. Please try again later." };
+            } else {
+                console.log("Error setting up the request", error.message);
+                return { message: "Request setup error: " + error.message };
+            }
         }
     }
 }
