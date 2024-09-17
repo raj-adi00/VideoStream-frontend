@@ -76,7 +76,7 @@ export class Video {
 
     async deleteVideo(videoid) {
         try {
-            const deleteStatus = await response_interceptor.delete(`videos/${videoid}`)
+            const deleteStatus = await response_interceptor.delete(`videos/${videoid}`,{withCredentials:true})
             if (deleteStatus.status >= 400)
                 return deleteStatus
             else
@@ -90,7 +90,7 @@ export class Video {
     async updateVideo(FormData, id) {
         try {
             // console.log(FormData)
-            const updateStatus = await response_interceptor.patch(`/videos/${id}`, FormData)
+            const updateStatus = await response_interceptor.patch(`/videos/${id}`, FormData,{withCredentials:true})
             console.log(updateStatus.data)
             if (updateStatus.data.statusCode < 300)
                 return updateStatus.data
@@ -113,7 +113,7 @@ export class Video {
 
     async changeToggleStatus(videoid, PublishStatus) {
         try {
-            const status = await response_interceptor.patch(`/videos/toggle/publish/${videoid}`, { isPublished: PublishStatus })
+            const status = await response_interceptor.patch(`/videos/toggle/publish/${videoid}`, { isPublished: PublishStatus },{withCredentials:true})
             console.log(status)
             if (status.data.statusCode < 300)
                 return status.data

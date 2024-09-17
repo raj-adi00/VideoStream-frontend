@@ -56,7 +56,7 @@ const NavBar = ({ isLoggedIn }) => {
                         User
                     </NavLink>
                     <NavLink
-                        to="/tweet"
+                        to="/tweets"
                         className={({ isActive }) =>
                             isActive ? "text-blue-500" : "hover:text-gray-300"
                         }

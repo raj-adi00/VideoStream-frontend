@@ -10,6 +10,7 @@ import Register from './Components/Register.jsx'
 import Login from './Components/Login.jsx'
 import VideoPage from './Components/VideoPage.jsx'
 import UploadVideoForm from './Components/UploadVideoForm.jsx'
+import Tweet from './Components/Tweet/Tweet.jsx'
 
 const router = createBrowserRouter([{
   path: '/',
@@ -21,15 +22,18 @@ const router = createBrowserRouter([{
     }, {
       path: "/register",
       element: <Register />
-    },{
-      path:"/login",
-      element:<Login/>
-    },{
-      path:"/:id",
-      element:<VideoPage/>
-    },{
-      path:"/upload-video",
-      element:<UploadVideoForm/>
+    }, {
+      path: "/login",
+      element: <Login />
+    }, {
+      path: "/:id",
+      element: <VideoPage />
+    }, {
+      path: "/upload-video",
+      element: <UploadVideoForm />
+    }, {
+      path: "/tweets",
+      element: <Tweet />
     }
   ]
 }])
