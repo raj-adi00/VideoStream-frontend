@@ -142,7 +142,7 @@ function VideoPage() {
         }
     }
     return (
-        <div className="container mx-auto p-4">
+        <div className="container mx-auto px-4">
             {error && (
                 <div className="bg-red-500 text-white p-2 rounded mb-4">
                     {error}
@@ -155,7 +155,7 @@ function VideoPage() {
             }
             <div className="flex space-x-8">
                 {/* Video Section */}
-                <div className="w-3/5">
+                <div className="w-3/5 mt-14">
                     <div className="video-container mb-4">
                         <iframe
                             ref={iframeRef}
@@ -214,7 +214,7 @@ function VideoPage() {
                 </div>
 
                 {/* Other Videos Section */}
-                <div className="w-2/5 border border-black p-3 overflow-auto" style={{ maxHeight: "80vh" }}>
+                <div className="w-2/5 border border-black p-3 overflow-auto mt-14" style={{ maxHeight: "80vh" }}>
                     <h2 className="text-xl font-semibold mb-4 relative">Related Videos</h2>
                     <div className="grid grid-cols-1 gap-4">
                         {otherVideos && otherVideos.map((video) => (

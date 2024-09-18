@@ -36,8 +36,11 @@ function TweetCard({ ...props }) {
         }
     }, [content]);
     useEffect(() => {
-        if (props.curUser == props.data.onwer)
+        console.log( props.currentUser, props.data.owner)
+        if (props.currentUser.trim() === props.data.owner.trim()) {
+            // Do something
             setIsowner(true)
+        }
         else
             setIsowner(false)
         setChannelData({ username: props.data.owner_details.username, createdAt: props.data.createdAt })
@@ -76,7 +79,7 @@ function TweetCard({ ...props }) {
             setReadonly(!redaonly)
     }
     return (
-        <div className='flex w-full flex-col px-4 border-2 border-solid my-3 mx-2 rounded-lg'>
+        <div className='border-gray-500 flex w-full flex-col px-4 border-2 border-solid my-3 mx-2 rounded-lg'>
             <div className='flex justify-between'>
                 {channelData && <Channel channelDetails={channelData} />}
                 {isOwner && <div className='flex gap-2 flex-wrap py-1'>

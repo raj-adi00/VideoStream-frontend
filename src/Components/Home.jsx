@@ -46,7 +46,7 @@ function Home() {
   return (
     <div className='flex flex-col gap-3'>
       {/* <div className='w-full mt-14'> Sorting algorithm</div> */}
-      <div className='flex gap-11 flex-wrap px-3'>
+      <div className='flex gap-11 flex-wrap px-3 mt-16'>
         {allVideo && allVideo.map(vid =>
           <Card
             key={vid._id}

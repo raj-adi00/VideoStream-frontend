@@ -109,7 +109,7 @@ const NavBar = ({ isLoggedIn }) => {
                     </button>
                 </div>
             </nav>
-            <div className="pt-10 px-4">
+            <div className="px-4">
                 {message && (
                     <div className="bg-green-500 text-white p-2 rounded mb-4">
                         {message}
