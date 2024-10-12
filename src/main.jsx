@@ -11,6 +11,7 @@ import Login from './Components/Login.jsx'
 import VideoPage from './Components/VideoPage.jsx'
 import UploadVideoForm from './Components/UploadVideoForm.jsx'
 import Tweet from './Components/Tweet/Tweet.jsx'
+import ChatComponent from './Components/Chat/Chatcomponent.jsx'
 
 const router = createBrowserRouter([{
   path: '/',
@@ -34,6 +35,9 @@ const router = createBrowserRouter([{
     }, {
       path: "/tweets",
       element: <Tweet />
+    },{
+      path:"/chat",
+      element:<ChatComponent/>
     }
   ]
 }])
