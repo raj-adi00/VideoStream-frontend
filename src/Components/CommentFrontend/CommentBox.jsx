@@ -51,7 +51,7 @@ function CommentBox({ videoid }) {
             </div>
             <div className='w-full px-3 border-2 border-solid border-gray-700 rounded'>
                 {Comments.length > 0 && (Comments.map((comment) =>
-                    <CommentCard id={comment._id} comment={comment} />
+                    <CommentCard key={comment._id} comment={comment} />
                 ))}
             </div>
         </div>

@@ -14,9 +14,9 @@ const CommentSlice = createSlice({
             state.comments = action.payload
         },
         NewComment: (state, action) => {
-            console.log(action.payload)
+            // console.log(action.payload)
             state.comments=([action.payload, ...state.comments]);
-            console.log(state.comments)
+            // console.log(state.comments)
         }
     }
 })
