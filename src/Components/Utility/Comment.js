@@ -38,6 +38,7 @@ export class Comments {
 
     async DeleteComment(commentid) {
         try {
+            console.log(commentid)
             const DeletedComment = await response_interceptor.delete(`/comments/delete-comment/${commentid}`)
             // console.log(DeletedComment.data.data)
             return DeletedComment.data

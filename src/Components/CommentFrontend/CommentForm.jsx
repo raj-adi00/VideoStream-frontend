@@ -39,14 +39,6 @@ function CommentForm({ setError }) {
                 if (res.statusCode >= 400)
                     setError(res.message)
                 else {
-                    // CommentService.getAllComments(id)
-                    //     .then((res) => {
-                    //         dispatch(GetComment(res.data))
-                    //         setContent('')
-                    //     })
-                    //     .catch((err) => {
-                    //         console.log(err, "Error at getting the documents")
-                    //     })
                     dispatch(NewComment(res.data))
                     setContent('')
                 }
