@@ -4,11 +4,14 @@ import CommentCard from './CommentCard'
 import CommentForm from './CommentForm'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetComment } from '../../Store/CommentSlice'
+import { v4 as uuidv4 } from 'uuid';
 function CommentBox({ videoid }) {
     // const [Comments, setComment] = useState([])
     const [error, setError] = useState('')
     const dispatch = useDispatch()
     const Comments = useSelector((state) => state.comments.comments)
+    
+    console.log(Comments)
     useEffect(() => {
         CommentService.getAllComments(videoid)
             .then((response) => {
@@ -51,7 +54,7 @@ function CommentBox({ videoid }) {
             </div>
             <div className='w-full px-3 border-2 border-solid border-gray-700 rounded'>
                 {Comments.length > 0 && (Comments.map((comment) =>
-                    <CommentCard key={comment._id} comment={comment} setError={setError} />
+                    <CommentCard key={uuidv4()} comment={comment} setError={setError} />
                 ))}
             </div>
         </div>

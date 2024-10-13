@@ -34,12 +34,17 @@ const CommentSlice = createSlice({
 
             // console.log(state.comments); // You can log it after the update to verify
             const idx = state.comments.findIndex(comment => comment._id == id); // Corrected findIndex usage
-
             if (idx !== -1) {
                 const updatedComment = { ...state.comments[idx], content: editedComment }; // Create a new comment object
-                state.comments = state.comments.map((comment) =>
-                    comment._id == id ? updatedComment : comment // Use map to update the comment
-                );
+                console.log(updatedComment)
+                for (let i = 0; i < state.comments.length; i++) {
+                    if (state.comments[i]._id == id) {
+                        console.log(i)
+                        state.comments[i] = updatedComment;
+                        break; // Exit loop once the comment is updated
+                    }
+                }
+
             }
         }
 
