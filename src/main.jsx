@@ -42,6 +42,9 @@ const router = createBrowserRouter([{
     }, {
       path: "/my-video",
       element: <MyVideo />
+    },{
+      path:"/u/:username",
+
     }
   ]
 }])

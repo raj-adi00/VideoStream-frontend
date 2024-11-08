@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { apiClient2, apiClient_getUser, response_interceptor } from '../Interceptor/apiClient';
+import handleAxiosError from '../Frequent/HandleAxiosError';
 
 
 
@@ -132,6 +133,18 @@ export class Video {
                 console.log("Error setting up the request", error.message);
                 return { message: "Request setup error: " + error.message };
             }
+        }
+    }
+    async updateView(videoid) {
+        try {
+            const updateVideoViews = await (await axios.patch(`/api/v1/videos/update-view-count/${videoid}`))?.data
+            if (updateVideoViews.statusCode === 200)
+                return updateVideoViews;
+            else
+                return handleAxiosError(updateVideoViews)
+        } catch (error) {
+            console.log(error)
+            return handleAxiosError(error)
         }
     }
 }

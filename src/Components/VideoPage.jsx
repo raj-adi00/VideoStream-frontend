@@ -21,6 +21,7 @@ function VideoPage() {
     const iframeRef = useRef(null);
     const [videoOwnerDetailse, setVideoOwnerDetails] = useState({});
     const [isPublished, setIspublished] = useState(false)
+    const [views, setViews] = useState()
     useEffect(() => {
         let storedVideos = [];
 
@@ -73,6 +74,19 @@ function VideoPage() {
             });
     }, [video_public_id, videoOwner, currentUser]);
 
+    useEffect(() => {
+        videoService.updateView(id)
+            .then((res) => {
+                // console.log(res)
+                if (res.statusCode === 200) {
+                    console.log(res)
+                    setViews(res.data.views)
+                }
+            })
+            .catch(() => {
+                console.log(error)
+            })
+    }, [])
     // useEffect(() => {
     //     const pauseVideo = () => {
     //         console.log(1)
@@ -200,6 +214,7 @@ function VideoPage() {
                                     <div className='border-2 w-auto inline-block px-2 py-1 rounded-sm text-lg font-semibold'>
                                         Channel : {videoOwnerDetailse.username}
                                     </div>
+                                    {views && <div>Views: {views}</div>}
                                     <div className=' w-auto inline-block px-2 py-1 text-sm'>
                                         Created On: {
                                             videoOwnerDetailse?.createdAt
