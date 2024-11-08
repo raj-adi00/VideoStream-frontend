@@ -4,12 +4,13 @@ import { apiClient2, apiClient_getUser, response_interceptor } from '../Intercep
 
 
 export class Video {
-    constructor() {
-
-    }
-    async fetchVideos() {
+    async fetchVideos(searchAfter) {
         try {
-            const response = await apiClient2.get('');
+            const response = await apiClient2.get('', {
+                params: {
+                    searchAfter: searchAfter
+                }
+            });
             console.log('Videos fetched:', response.data);
             return response.data;
         } catch (error) {
@@ -76,7 +77,7 @@ export class Video {
 
     async deleteVideo(videoid) {
         try {
-            const deleteStatus = await response_interceptor.delete(`videos/${videoid}`,{withCredentials:true})
+            const deleteStatus = await response_interceptor.delete(`videos/${videoid}`, { withCredentials: true })
             if (deleteStatus.status >= 400)
                 return deleteStatus
             else
@@ -90,7 +91,7 @@ export class Video {
     async updateVideo(FormData, id) {
         try {
             // console.log(FormData)
-            const updateStatus = await response_interceptor.patch(`/videos/${id}`, FormData,{withCredentials:true})
+            const updateStatus = await response_interceptor.patch(`/videos/${id}`, FormData, { withCredentials: true })
             console.log(updateStatus.data)
             if (updateStatus.data.statusCode < 300)
                 return updateStatus.data
@@ -113,7 +114,7 @@ export class Video {
 
     async changeToggleStatus(videoid, PublishStatus) {
         try {
-            const status = await response_interceptor.patch(`/videos/toggle/publish/${videoid}`, { isPublished: PublishStatus },{withCredentials:true})
+            const status = await response_interceptor.patch(`/videos/toggle/publish/${videoid}`, { isPublished: PublishStatus }, { withCredentials: true })
             console.log(status)
             if (status.data.statusCode < 300)
                 return status.data

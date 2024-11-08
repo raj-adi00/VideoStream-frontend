@@ -4,24 +4,34 @@ import Card from './Card'
 import videoService from './Utility/Video';
 import ErrorPage from './ErrorPage';
 import Loader from './Loader';
-
+import Pagination from '../Pagination/Pagination';
+import { useDispatch, useSelector } from 'react-redux';
 
 function Home() {
   const [allVideo, setAllVideo] = useState([]);
   const [statusCode, setStatusCode] = useState(200)
   const [Message, setMessage] = useState('');
   const [loading, setloading] = useState(false)
+  const reduxPage = useSelector(state => state.homePage.homePage);  // Get page from Redux store
+  const [page, setPage] = useState(reduxPage);  // Initialize local state with reduxPage  
+  const [searchAfter, setsearchAfter] = useState('')
+  const [totalPage, settotalPage] = useState(0)
   useEffect(() => {
     const loadVideos = async () => {
       setMessage("");
       setloading(true)
+      console.log(searchAfter)
       try {
-        const videoData = await videoService.fetchVideos();
+        console.log(page)
+        const videoData = await videoService.fetchVideos(page);
         setStatusCode(videoData.statusCode)
         setMessage(videoData.message)
         setAllVideo(videoData.data.videos);
-        if (videoData){
-           localStorage.setItem("allvideo", JSON.stringify(videoData.data.videos));
+        settotalPage(videoData.data.totalPage)
+        setsearchAfter(videoData.data.searchAfter)
+        // console.log(videoData.data)
+        if (videoData) {
+          localStorage.setItem("allvideo", JSON.stringify(videoData.data.videos));
           // console.log(allVideo)
         }
         setloading(false)
@@ -34,7 +44,7 @@ function Home() {
       }
     };
     loadVideos();
-  }, []);
+  }, [page]);
   // if (loading)
   //   return <Loader />
 
@@ -53,6 +63,9 @@ function Home() {
             {...vid}
           />
         )}
+      </div>
+      <div>
+        <Pagination page={page} searchAfter={searchAfter} totalPage={totalPage} setPage={setPage} />
       </div>
     </div>
   )

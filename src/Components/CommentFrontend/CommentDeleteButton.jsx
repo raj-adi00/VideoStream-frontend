@@ -40,7 +40,7 @@ function CommentDeleteButton({ commentID, setError }) {
     return (
         <div className='overflow-hidden relative'>
             <p className='cursor-pointer hover:text-red-500' onClick={handleDelete}>Delete</p>
-            <div className='relative top-0 right-0'>
+            <div className='fixed top-0 right-0'>
                 <Confirmation scale={scale} setScale={setScale} setConfrimationResponse={setConfrimationResponse} yes={yes} setYes={setYes} />
             </div>
         </div>
