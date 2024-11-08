@@ -21,9 +21,9 @@ export class Video {
     async uploadVideo(data) {
         try {
             // Proper logging for FormData:
-            for (let [key, value] of data.entries()) {
-                console.log(`${key}:`, value);
-            }
+            // for (let [key, value] of data.entries()) {
+            //     console.log(`${key}:`, value);
+            // }
 
             const response = await response_interceptor.post('/videos/upload-video', data, {
                 // No need to set Content-Type header for FormData manually
