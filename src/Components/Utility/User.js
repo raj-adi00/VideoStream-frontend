@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { apiClient_getUser } from "../Interceptor/apiClient";
+import handleAxiosError from "../Frequent/HandleAxiosError";
 
 export class User {
     err = {
@@ -96,13 +97,26 @@ export class User {
 
     async refreshAccessToken() {
         try {
-            const user = await axios.post('users/refresh-token', {}, { withCredentials: true })
+            const user = await axios.post('api/v1/users/refresh-token', {}, { withCredentials: true })
             console.log(user)
             return user
         } catch (error) {
             console.log("error at refresh token", error)
             this.err.message = error?.message
             return this.err
+        }
+    }
+
+    async updateWatchHistory(videoid) {
+        try {
+            const updateStatus = (await axios.patch(`api/v1/users/watch-history/${videoid}`, {}, { withCredentials: true }))?.data
+            if (updateStatus.statusCode == 200)
+                return updateStatus
+            else
+                return (updateStatus?.message)
+        } catch (error) {
+            console.log(error)
+            return handleAxiosError(error)
         }
     }
 

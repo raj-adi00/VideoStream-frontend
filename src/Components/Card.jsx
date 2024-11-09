@@ -4,25 +4,48 @@ import videoService from './Utility/Video';
 import { useDispatch } from 'react-redux';
 import { info } from '../Store/ErrorMessageSlice';
 import handleAxiosError from './Frequent/HandleAxiosError';
+import UserSevice from './Utility/User';
 
 const Card = ({ _id, thumbnail, title, owner, channel_owner, video_public_id, toastMessage }) => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    // const updateViews = () => {
+    //     videoService.updateView(_id)
+    //         .then((res) => {
+    //             if (res.statusCode === 200)
+    //                 navigate(`/${_id}`, { state: { video_public_id } })
+
+    //         })
+    //         .catch((error) => {
+    //             console.log(error)
+    //             dispatch(info(handleAxiosError(error)))
+    //         })
+    // }
     const updateViews = () => {
         videoService.updateView(_id)
             .then((res) => {
-                if (res.statusCode === 200) {
-                    navigate(`/${_id}`, { state: { video_public_id } })
+                if (res.statusCode) {
+                    return UserSevice.updateWatchHistory(_id);
+                } else {
+                    dispatch(info(handleAxiosError(res)))
+                    return
                 }
+            })
+            .then((watchHistoryRes) => {
+                console.log(watchHistoryRes)
+                if (watchHistoryRes.statusCode)
+                    navigate(`/${_id}`, { state: { video_public_id } });
                 else {
-                    dispatch(info(res?.message))
+                    dispatch(info(handleAxiosError(res)))
+                    return
                 }
             })
             .catch((error) => {
-                console.log(error)
-                dispatch(info(handleAxiosError(error)))
-            })
-    }
+                console.log(error);
+                dispatch(info(handleAxiosError(error)));
+            });
+    };
+
     return (
         <div className="w-80 rounded-lg overflow-hidden shadow-lg bg-white dark:bg-gray-800 dark:text-gray-200 border border-gray-300 dark:border-gray-700 min-w-80 min-h-72 transition duration-300 ease-in-out hover:shadow-xl">
             <Link state={{ video_public_id }} onClick={updateViews}>

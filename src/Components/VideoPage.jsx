@@ -75,50 +75,6 @@ function VideoPage() {
             });
     }, [video_public_id, videoOwner, currentUser]);
 
-    useEffect(() => {
-        // videoService.updateView(id)
-        //     .then((res) => {
-        //         // console.log(res)
-        //         if (res.statusCode === 200) {
-        //             console.log(res)
-        //             setViews(res.data.views)
-        //         }
-        //     })
-        //     .catch(() => {
-        //         console.log(error)
-        //     })
-    }, [])
-    // useEffect(() => {
-    //     const pauseVideo = () => {
-    //         console.log(1)
-    //         if (iframeRef.current) {
-    //             const message = JSON.stringify({
-    //                 event: "command",
-    //                 func: "pause",
-    //             });
-    //             iframeRef.current.contentWindow.postMessage(message, "*");
-    //         }
-    //     };
-
-    //     const playVideo = () => {
-    //         if (iframeRef.current) {
-    //             const message = JSON.stringify({
-    //                 event: "command",
-    //                 func: "play",
-    //             });
-    //             iframeRef.current.contentWindow.postMessage(message, "*");
-    //         }
-    //     };
-
-    //     // Pause video if updateVideo is true
-    //     if (updateVideo) {
-    //         pauseVideo();
-    //     } else {
-    //         // Let the user control the video otherwise
-    //         playVideo();
-    //     }
-    // }, [updateVideo]); // Dependency on updateVideo
-
     const handleDelete = async () => {
         try {
             setError('')
