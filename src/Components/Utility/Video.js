@@ -12,7 +12,6 @@ export class Video {
                     searchAfter: searchAfter
                 }
             });
-            console.log('Videos fetched:', response.data);
             return response.data;
         } catch (error) {
             console.error('Error fetching videos:', error);
@@ -50,11 +49,9 @@ export class Video {
     }
 
     async getParticularvideobyId(videoid) {
-        //   console.log(videoid)
         try {
             const details = await axios.get('/api/v1/videos/videoid')
             if (details) {
-                console.log(details)
                 return details
             }
 
@@ -93,7 +90,6 @@ export class Video {
         try {
             // console.log(FormData)
             const updateStatus = await response_interceptor.patch(`/videos/${id}`, FormData, { withCredentials: true })
-            console.log(updateStatus.data)
             if (updateStatus.data.statusCode < 300)
                 return updateStatus.data
             else
@@ -116,7 +112,6 @@ export class Video {
     async changeToggleStatus(videoid, PublishStatus) {
         try {
             const status = await response_interceptor.patch(`/videos/toggle/publish/${videoid}`, { isPublished: PublishStatus }, { withCredentials: true })
-            console.log(status)
             if (status.data.statusCode < 300)
                 return status.data
             else

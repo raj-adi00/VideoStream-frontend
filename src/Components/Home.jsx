@@ -6,7 +6,8 @@ import ErrorPage from './ErrorPage';
 import Loader from './Loader';
 import Pagination from '../Pagination/Pagination';
 import { useDispatch, useSelector } from 'react-redux';
-
+import { ToastContainer, toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 function Home() {
   const [allVideo, setAllVideo] = useState([]);
   const [statusCode, setStatusCode] = useState(200)
@@ -20,22 +21,17 @@ function Home() {
     const loadVideos = async () => {
       setMessage("");
       setloading(true)
-      console.log(searchAfter)
       try {
-        console.log(page)
         const videoData = await videoService.fetchVideos(page);
         setStatusCode(videoData.statusCode)
         setMessage(videoData.message)
         setAllVideo(videoData.data.videos);
         settotalPage(videoData.data.totalPage)
         setsearchAfter(videoData.data.searchAfter)
-        // console.log(videoData.data)
         if (videoData) {
           localStorage.setItem("allvideo", JSON.stringify(videoData.data.videos));
-          // console.log(allVideo)
         }
         setloading(false)
-        console.log(videoData.data.videos)
       } catch (error) {
         console.error('Error loading videos:', error);
         setStatusCode(videoData.statusCode || 500)
@@ -55,7 +51,6 @@ function Home() {
   // else
   return (
     <div className='flex flex-col gap-3'>
-      {/* <div className='w-full mt-14'> Sorting algorithm</div> */}
       <div className='flex gap-11 flex-wrap px-3 mt-16'>
         {allVideo && allVideo.map(vid =>
           <Card

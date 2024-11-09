@@ -11,13 +11,10 @@ const CommentSlice = createSlice({
     initialState,
     reducers: {
         GetComment: (state, action) => {
-            // console.log(action.payload)
             state.comments = action.payload
         },
         NewComment: (state, action) => {
-            // console.log(action.payload)
             state.comments = ([action.payload, ...state.comments]);
-            // console.log(state.comments)
         },
         DeleteComment: (state, action) => {
             const id = action.payload;
@@ -25,21 +22,17 @@ const CommentSlice = createSlice({
         },
         EditComment: (state, action) => {
             const { id, editedComment } = action.payload;
-            console.log(action.payload);
 
             // Use map to immutably update the comments array
             // state.comments = state.comments.map((comment) =>
             //     comment._id === id ? { ...comment, content: editedComment } : comment
             // );
 
-            // console.log(state.comments); // You can log it after the update to verify
             const idx = state.comments.findIndex(comment => comment._id == id); // Corrected findIndex usage
             if (idx !== -1) {
                 const updatedComment = { ...state.comments[idx], content: editedComment }; // Create a new comment object
-                console.log(updatedComment)
                 for (let i = 0; i < state.comments.length; i++) {
                     if (state.comments[i]._id == id) {
-                        console.log(i)
                         state.comments[i] = updatedComment;
                         break; // Exit loop once the comment is updated
                     }

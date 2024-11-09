@@ -60,7 +60,8 @@ function VideoPage() {
         videoService.getVideobyVideo_public_id(video_public_id)
             .then((res) => {
                 setVideoOwner(res?.data?.data?.owner);
-                // console.log(res.data)
+                console.log(res.data.data)
+                setViews(res.data.data.views)
                 if (currentUser === videoOwner && res.data.data.owner && currentUser) {
                     setIsCurrentUserOwner(true);
                 }
@@ -75,17 +76,17 @@ function VideoPage() {
     }, [video_public_id, videoOwner, currentUser]);
 
     useEffect(() => {
-        videoService.updateView(id)
-            .then((res) => {
-                // console.log(res)
-                if (res.statusCode === 200) {
-                    console.log(res)
-                    setViews(res.data.views)
-                }
-            })
-            .catch(() => {
-                console.log(error)
-            })
+        // videoService.updateView(id)
+        //     .then((res) => {
+        //         // console.log(res)
+        //         if (res.statusCode === 200) {
+        //             console.log(res)
+        //             setViews(res.data.views)
+        //         }
+        //     })
+        //     .catch(() => {
+        //         console.log(error)
+        //     })
     }, [])
     // useEffect(() => {
     //     const pauseVideo = () => {

@@ -6,6 +6,8 @@ import UserSevice from './Components/Utility/User'
 import { useDispatch } from 'react-redux'
 import { userLogin } from './Store/authSlice'
 import { useSelector } from 'react-redux'
+import { ToastContainer } from 'react-toastify'
+import "react-toastify/dist/ReactToastify.css";
 function App() {
   const dispatch = useDispatch()
   const isLoggedIn = useSelector(state => state.auth.isLoggedin)
@@ -25,6 +27,7 @@ function App() {
     <>
       <NavBar isLoggedIn={isLoggedIn} />
       <Outlet />
+      <ToastContainer/>
     </>
   )
 }
