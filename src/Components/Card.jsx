@@ -27,7 +27,7 @@ const Card = ({ _id, thumbnail, title, owner, channel_owner, video_public_id, to
                 if (res.statusCode) {
                     return UserSevice.updateWatchHistory(_id);
                 } else {
-                    dispatch(info(handleAxiosError(res)))
+                    dispatch(info(handleAxiosError(res).message))
                     return
                 }
             })
@@ -36,13 +36,13 @@ const Card = ({ _id, thumbnail, title, owner, channel_owner, video_public_id, to
                 if (watchHistoryRes.statusCode)
                     navigate(`/${_id}`, { state: { video_public_id } });
                 else {
-                    dispatch(info(handleAxiosError(res)))
+                    dispatch(info(handleAxiosError(res).message))
                     return
                 }
             })
             .catch((error) => {
                 console.log(error);
-                dispatch(info(handleAxiosError(error)));
+                dispatch(info(handleAxiosError(error).message));
             });
     };
 

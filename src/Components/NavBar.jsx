@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import UserSevice from './Utility/User';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { userLogout } from '../Store/authSlice';
 import { useNavigate } from 'react-router-dom';
 
@@ -10,6 +10,7 @@ const NavBar = ({ isLoggedIn }) => {
     const [error, seterror] = useState(null);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const username = useSelector((state) => state.auth.userDetails?.username)
 
     async function handleLogout() {
         try {
@@ -47,14 +48,14 @@ const NavBar = ({ isLoggedIn }) => {
                     >
                         Home
                     </NavLink>
-                    <NavLink
-                        to="/user"
+                    {username && <NavLink
+                        to={`/u/${username}`}
                         className={({ isActive }) =>
                             isActive ? "text-blue-500" : "hover:text-gray-300"
                         }
                     >
                         User
-                    </NavLink>
+                    </NavLink>}
                     <NavLink
                         to="/tweets"
                         className={({ isActive }) =>

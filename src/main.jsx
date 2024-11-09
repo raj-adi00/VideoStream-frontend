@@ -13,6 +13,7 @@ import UploadVideoForm from './Components/UploadVideoForm.jsx'
 import Tweet from './Components/Tweet/Tweet.jsx'
 import ChatComponent from './Components/Chat/Chatcomponent.jsx'
 import MyVideo from './Components/My Video/MyVideo.jsx'
+import UserPage from './Components/User/UserPage.jsx'
 
 const router = createBrowserRouter([{
   path: '/',
@@ -42,9 +43,9 @@ const router = createBrowserRouter([{
     }, {
       path: "/my-video",
       element: <MyVideo />
-    },{
-      path:"/u/:username",
-
+    }, {
+      path: "/u/:username",
+      element: <UserPage />
     }
   ]
 }])

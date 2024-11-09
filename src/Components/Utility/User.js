@@ -120,6 +120,19 @@ export class User {
         }
     }
 
+    async getUserChannel(username) {
+        try {
+            const channel = await axios.get(`/api/v1/users/c/${username}`, {}, { withCredentials: true })
+            if (channel.status === 200)
+                return channel.data
+            else
+                return handleAxiosError(channel)
+        } catch (error) {
+            console.log(error)
+            return handleAxiosError(error)
+        }
+    }
+
 }
 const UserSevice = new User()
 export default UserSevice
