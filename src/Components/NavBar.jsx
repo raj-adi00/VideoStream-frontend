@@ -4,6 +4,8 @@ import UserSevice from './Utility/User';
 import { useDispatch, useSelector } from 'react-redux';
 import { userLogout } from '../Store/authSlice';
 import { useNavigate } from 'react-router-dom';
+import { info } from '../Store/ErrorMessageSlice';
+import handleAxiosError from './Frequent/HandleAxiosError';
 
 const NavBar = ({ isLoggedIn }) => {
     const [message, setMessage] = useState(null);
@@ -23,12 +25,12 @@ const NavBar = ({ isLoggedIn }) => {
                 window.location.reload();
             } else {
                 setMessage(null);
-                seterror(response?.data?.message || "Please retry");
+                dispatch(info(handleAxiosError(response).message || "Please retry"))
             }
         } catch (err) {
             console.log("error at logout", err);
             setMessage(null);
-            seterror(err.response?.data?.message || 'Something went wrong');
+            dispatch(info(err.response?.data?.message || 'Something went wrong'))
         }
     }
 

@@ -2,12 +2,15 @@
 import React, { useState } from 'react';
 import ChannelName from '../Frequent/ChannelName';
 import TweetService from '../Utility/Tweet';
+import { useDispatch } from 'react-redux';
+import { info } from '../../Store/ErrorMessageSlice';
+import handleAxiosError from '../Frequent/HandleAxiosError';
 
 
 function TweetCreateForm(prps) {
     // console.log(prps)
     const [content, setContent] = useState('');
-
+    const dispatch = useDispatch()
     const handleChange = (e) => {
         setContent(e.target.value);
     };
@@ -19,7 +22,6 @@ function TweetCreateForm(prps) {
         formData.append('content', content);
 
         try {
-            prps.setError('')
             const createdTweet = await TweetService.CreateTweet(formData)
             if (createdTweet.status == 200) {
                 createdTweet.data.data.owner_details = createdTweet.data.data.owner
@@ -31,10 +33,10 @@ function TweetCreateForm(prps) {
                 prps.changeVisible(!prps.currentstate)
             }
             else
-                prps.setError(createdTweet?.message || "Something went wrong")
+                dispatch(info(handleAxiosError(createdTweet).message || "Something went wrong"))
         } catch (error) {
             console.log("Error while creating the tweet")
-            prps.setError(error?.message || "Something went wrong")
+            dispatch(info(handleAxiosError(error).message || "Something went wrong"))
         }
     };
 

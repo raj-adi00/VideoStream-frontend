@@ -1,6 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react'
 import Channel from '../Frequent/Channel'
 import TweetService, { Tweets } from '../Utility/Tweet'
+import { useDispatch } from 'react-redux';
+import handleAxiosError from '../Frequent/HandleAxiosError';
+import { info, warn } from '../../Store/ErrorMessageSlice';
 
 function TweetCard({ ...props }) {
     // console.log(props)
@@ -11,6 +14,7 @@ function TweetCard({ ...props }) {
     const [channelData, setChannelData] = useState({})
     const [Edit, SetEdit] = useState("Edit")
     const inputTag = useRef()
+    const dispatch = useDispatch()
     useEffect(() => {
         if (redaonly) {
             inputTag.current.setAttribute("readOnly", true)
@@ -36,7 +40,7 @@ function TweetCard({ ...props }) {
         }
     }, [content]);
     useEffect(() => {
-        console.log( props.currentUser, props.data.owner)
+        console.log(props.currentUser, props.data.owner)
         if (props.currentUser.trim() === props.data.owner.trim()) {
             // Do something
             setIsowner(true)
@@ -52,13 +56,13 @@ function TweetCard({ ...props }) {
         try {
             const deleteTweet = await TweetService.deleteTweet(tweetid)
             if (deleteTweet.status != 200)
-                props.setError(deleteTweet?.message || "Something went wrong")
+                dispatch(info(handleAxiosError(deleteTweet).message || "Something went wrong"))
             else {
                 window.location.reload()
             }
         } catch (error) {
             console.log("Error while Deleting the tweet", error)
-            props.setError(error?.message || "Something went wrong")
+            dispatch(info(handleAxiosError(error).message || "Something went wrong"))
         }
     }
     async function handleEdit() {
@@ -66,13 +70,13 @@ function TweetCard({ ...props }) {
             try {
                 const updateDetails = await TweetService.updateTweet(tweetid, { content })
                 if (updateDetails.status != 200)
-                    props.setError(updateDetails?.message || "Something went wrong")
+                    dispatch(info(handleAxiosError(updateDetails).message || "Something went wrong"))
                 else
                     setReadonly(!redaonly)
 
             } catch (error) {
                 console.log("Error while updating the tweet", err)
-                props.setError(error?.message || "Something went wrong")
+                dispatch(info(handleAxiosError(error).message || "Something went wrong"))
             }
         }
         else
