@@ -36,7 +36,7 @@ const Login = () => {
         try {
             const user = await UserSevice.login(formdataobj);
             if (user?.status < 400) {
-                dispatch(userLogin(user.data.user));
+                dispatch(userLogin(user.data.data.user));
                 setMessage(user.data.message);
                 setError(null);
                 navigate('/');

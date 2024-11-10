@@ -16,7 +16,7 @@ function Channel({ ...props }) {
     }
     return (
         <div className="flex flex-col sm:flex-row justify-between items-center my-3 p-3 border bg-blue-300 border-gray-300 rounded-md shadow-sm w-full max-w-lg">
-            <div className="text-lg font-semibold text-gray-800" onClick={handleclick}>
+            <div className="text-lg font-semibold text-gray-800 cursor-pointer" onClick={handleclick}>
                 <span className="font-bold text-gray-900">Channel: </span>
                 {username || 'Unknown'}
             </div>

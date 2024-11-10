@@ -2,6 +2,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { apiClient_getUser } from "../Interceptor/apiClient";
 import handleAxiosError from "../Frequent/HandleAxiosError";
+import { useDispatch } from "react-redux";
+import { userLogin } from "../../Store/authSlice";
 
 export class User {
     err = {
@@ -58,7 +60,6 @@ export class User {
                 },
                 withCredentials: true,
             })
-            console.log(user)
             return user
         } catch (error) {
             console.log("error at login", error.response)
@@ -97,7 +98,7 @@ export class User {
 
     async refreshAccessToken() {
         try {
-            const user = await axios.post('api/v1/users/refresh-token', {}, { withCredentials: true })
+            const user = await axios.post('/api/v1/users/refresh-token', {}, { withCredentials: true })
             console.log(user)
             return user
         } catch (error) {

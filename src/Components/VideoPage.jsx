@@ -168,7 +168,7 @@ function VideoPage() {
                             {videoOwnerDetailse &&
                                 <div className='flex justify-between px-1 items-center'>
 
-                                    <div className='border-2 w-auto inline-block px-2 py-1 rounded-sm text-lg font-semibold'>
+                                    <div className='border-2 w-auto inline-block px-2 py-1 rounded-sm text-lg font-semibold cursor-pointer' onClick={()=>navigate(`/u/${videoOwnerDetailse.username}`)}>
                                         Channel : {videoOwnerDetailse.username}
                                     </div>
                                     {views && <div>Views: {views}</div>}

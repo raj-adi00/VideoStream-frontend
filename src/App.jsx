@@ -15,7 +15,7 @@ function App() {
   UserSevice.getCurrentUser()
     .then((userDetails) => {
       if (userDetails.status < 400)
-        dispatch(userLogin(userDetails.data))
+        dispatch(userLogin(userDetails.data.data))
       else
         console.log(userDetails)
     })

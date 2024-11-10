@@ -15,7 +15,7 @@ function ChannelName() {
         }
     }
     return (
-        <div className="text-lg font-semibold text-gray-800" onClick={handlClick}>
+        <div className="text-lg font-semibold text-gray-800 cursor-pointer" onClick={handlClick}>
             <span className="font-bold text-gray-900">Channel: </span>
             {user?.username || 'Unknown'}
         </div>
