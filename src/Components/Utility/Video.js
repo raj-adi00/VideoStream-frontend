@@ -142,6 +142,18 @@ export class Video {
             return handleAxiosError(error)
         }
     }
+
+    async getMyVideo() {
+        try {
+            const myVideos = await axios.get('/api/v1/videos/my/personalised-video')
+            if (myVideos.status === 200)
+                return myVideos.data
+            return handleAxiosError(myVideos)
+        } catch (error) {
+            console.log(error)
+            return handleAxiosError(error)
+        }
+    }
 }
 const videoService = new Video();
 export default videoService

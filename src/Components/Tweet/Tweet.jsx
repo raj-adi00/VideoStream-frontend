@@ -48,7 +48,7 @@ function Tweet() {
 
     return (
         <div>
-            <div className='flex w-screen px-2 py-12 flex-col items-center'>
+            <div className='flex w-screen px-2 py-12 flex-col items-center max-w-screen overflow-hidden'>
                 {error && <p className="text-red-500 relative">{error}</p>}
                 {allTweets.length > 0 && currentUser ? (
                     allTweets.map((tweet, ind) => (

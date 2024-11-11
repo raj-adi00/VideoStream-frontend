@@ -100,16 +100,11 @@ const NavBar = ({ isLoggedIn }) => {
                     {isLoggedIn && <NavLink
                         to="/upload-video"
                         className={({ isActive }) =>
-                            isActive ? "text-blue-500" : "hover:text-gray-300"
+                            isActive ? "text-blue-500 px-3" : "hover:text-gray-300 px-3"
                         }
                     >
                         Upload Video
                     </NavLink>}
-
-                    {/* Toggle for dark and light theme */}
-                    <button className="px-3 py-1 rounded border border-gray-300 hover:bg-gray-700 dark:bg-gray-800 dark:text-gray-300">
-                        Dark/Light
-                    </button>
                 </div>
             </nav>
             <div className="px-4">

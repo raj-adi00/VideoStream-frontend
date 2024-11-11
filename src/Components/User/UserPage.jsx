@@ -4,7 +4,6 @@ import UserSevice from '../Utility/User'
 import { useDispatch } from 'react-redux';
 import { info } from '../../Store/ErrorMessageSlice';
 import handleAxiosError from '../Frequent/HandleAxiosError';
-import { Link } from 'react-router-dom';
 
 function UserPage() {
     const path = window.location.pathname;
@@ -60,7 +59,7 @@ function UserPage() {
         <div className="flex flex-col items-center bg-gray-100 min-h-screen">
             {/* Cover Image */}
             <div
-                className="w-full h-72 bg-contain bg-no-repeat bg-center"
+                className="w-full h-72 bg-contain bg-no-repeat bg-center mt-20"
                 style={{
                     backgroundImage: `url(${coverImageUrl})`,
                 }}

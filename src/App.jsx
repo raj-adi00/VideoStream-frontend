@@ -1,13 +1,13 @@
 import { useState } from 'react'
 import './App.css'
 import { Outlet } from 'react-router-dom'
-import NavBar from './Components/Navbar'
 import UserSevice from './Components/Utility/User'
 import { useDispatch } from 'react-redux'
 import { userLogin } from './Store/authSlice'
 import { useSelector } from 'react-redux'
 import { ToastContainer } from 'react-toastify'
 import "react-toastify/dist/ReactToastify.css";
+import NavBar from './Components/NavBar'
 function App() {
   const dispatch = useDispatch()
   const isLoggedIn = useSelector(state => state.auth.isLoggedin)

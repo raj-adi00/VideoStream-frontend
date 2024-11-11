@@ -50,7 +50,7 @@ function Home() {
   //   )
   // else
   return (
-    <div className='flex flex-col gap-3'>
+    <div className='flex flex-col gap-3 max-w-screen overflow-hidden'>
       <div className='flex gap-11 flex-wrap px-3 mt-16'>
         {allVideo && allVideo.map(vid =>
           <Card
