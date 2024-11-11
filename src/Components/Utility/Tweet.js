@@ -6,7 +6,7 @@ export class Tweets {
 
     async getAllTweets() {
         try {
-            const alltweets = await axios.get('/api/v1/tweet/get-tweets')
+            const alltweets = await axios.get('https://itube-iser.onrender.com/api/v1/tweet/get-tweets')
             return alltweets
         } catch (error) {
             console.log("error at Gettin all the tweets", error)
