@@ -5,11 +5,7 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   server: {
     proxy: {
-      '/api': {
-        target: 'https://itube-iser.onrender.com',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, '') // removes '/api' prefix
-      }
+      '/api': 'https://itube-iser.onrender.com/'
     },
   },
   plugins: [react()],
