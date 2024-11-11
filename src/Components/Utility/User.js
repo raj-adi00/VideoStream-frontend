@@ -54,7 +54,7 @@ export class User {
 
     async login(formData) {
         try {
-            const user = await axios.post('api/v1/users/login', formData, {
+            const user = await axios.post('https://itube-iser.onrender.com/api/v1/users/login', formData, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
