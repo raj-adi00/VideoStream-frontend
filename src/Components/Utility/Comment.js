@@ -1,3 +1,5 @@
+const BACKEND_URL="https://itube-iser.onrender.com"
+
 import axios from "axios";
 import handleAxiosError from "../Frequent/HandleAxiosError";
 import { response_interceptor } from "../Interceptor/apiClient";
@@ -5,7 +7,7 @@ import { response_interceptor } from "../Interceptor/apiClient";
 export class Comments {
     async getAllComments(videoid) {
         try {
-            const allComments = await axios.get(`/api/v1/comments/get-comment/${videoid}`)
+            const allComments = await axios.get(`${BACKEND_URL}/api/v1/comments/get-comment/${videoid}`)
             // console.log(allComments.data.data)
             return allComments.data
         } catch (error) {

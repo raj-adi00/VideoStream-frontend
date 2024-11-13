@@ -1,3 +1,5 @@
+const BACKEND_URL="https://itube-iser.onrender.com"
+
 import axios from "axios";
 import { response_interceptor } from "../Interceptor/apiClient";
 
@@ -6,7 +8,7 @@ export class Tweets {
 
     async getAllTweets() {
         try {
-            const alltweets = await axios.get('http://localhost:8000/api/v1/tweet/get-tweets')
+            const alltweets = await axios.get(`${BACKEND_URL}/api/v1/tweet/get-tweets`)
             return alltweets
         } catch (error) {
             console.log("error at Gettin all the tweets", error)
@@ -26,7 +28,7 @@ export class Tweets {
 
     async CreateTweet(FormData) {
         try {
-            const createTweetStatus = await response_interceptor.post('/tweet/create-tweet', FormData, { withCredentials: true })
+            const createTweetStatus = await response_interceptor.post(`/tweet/create-tweet`, FormData, { withCredentials: true })
             return createTweetStatus;
         } catch (error) {
             console.log("error at updating the tweets", error)

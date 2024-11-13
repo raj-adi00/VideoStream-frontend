@@ -1,3 +1,5 @@
+const BACKEND_URL="https://itube-iser.onrender.com"
+
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { apiClient_getUser } from "../Interceptor/apiClient";
@@ -15,7 +17,7 @@ export class User {
     }
     async getCurrentUser() {
         try {
-            const currentUser = await apiClient_getUser.get('/current-user', { withCredentials: true });
+            const currentUser = await apiClient_getUser.get(`/current-user`, { withCredentials: true });
             // console.log(currentUser);
             return currentUser;
         } catch (error) {
@@ -28,7 +30,7 @@ export class User {
 
     async register(formDataobj) {
         try {
-            const user = await axios.post('/api/v1/users/register', formDataobj, {
+            const user = await axios.post(`${BACKEND_URL}/api/v1/users/register`, formDataobj, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -55,7 +57,7 @@ export class User {
     async login(formData) {
         try {
             // const user = await axios.post('https://itube-iser.onrender.com/api/v1/users/login', formData, {
-            const user = await axios.post('https://itube-iser.onrender.com/api/v1/users/login', formData, {
+            const user = await axios.post(`${BACKEND_URL}/api/v1/users/login`, formData, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -79,7 +81,7 @@ export class User {
 
     async logout() {
         try {
-            const user = await apiClient_getUser.post('/logout', {}, { withCredentials: true })
+            const user = await apiClient_getUser.post(`/logout`, {}, { withCredentials: true })
             console.log(user)
             return user
         } catch (error) {
@@ -99,7 +101,7 @@ export class User {
 
     async refreshAccessToken() {
         try {
-            const user = await axios.post('/api/v1/users/refresh-token', {}, { withCredentials: true })
+            const user = await axios.post(`${BACKEND_URL}/api/v1/users/refresh-token`, {}, { withCredentials: true })
             console.log(user)
             return user
         } catch (error) {
@@ -111,7 +113,7 @@ export class User {
 
     async updateWatchHistory(videoid) {
         try {
-            const updateStatus = (await axios.patch(`api/v1/users/watch-history/${videoid}`, {}, { withCredentials: true }))?.data
+            const updateStatus = (await axios.patch(`${BACKEND_URL}/api/v1/users/watch-history/${videoid}`, {}, { withCredentials: true }))?.data
             if (updateStatus.statusCode == 200)
                 return updateStatus
             else
@@ -124,7 +126,7 @@ export class User {
 
     async getUserChannel(username) {
         try {
-            const channel = await axios.get(`/api/v1/users/c/${username}`, {}, { withCredentials: true })
+            const channel = await axios.get(`${BACKEND_URL}/api/v1/users/c/${username}`, {}, { withCredentials: true })
             if (channel.status === 200)
                 return channel.data
             else

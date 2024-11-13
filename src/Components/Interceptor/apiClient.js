@@ -1,3 +1,6 @@
+const BACKEND_URL="https://itube-iser.onrender.com"
+
+
 import axios from 'axios';
 import UserSevice from '../Utility/User.js';
 
@@ -13,10 +16,7 @@ const responseInterceptor = async (error) => {
 
             return axios(originalRequest);
         } else {
-            // Handle the case where refresh token fails
             console.error("Token refresh failed. Redirecting to login...");
-            // Optionally, redirect to login
-            // window.location.href = '/login';
         }
     }
 
@@ -35,17 +35,17 @@ const requestInterceptor = async (request) => {
     }
 };
 const apiClient_getUser = axios.create({
-    baseURL: '/api/v1/users', // More general baseURL
+    baseURL: `${BACKEND_URL}/api/v1/users`, // More general baseURL
     withCredentials: true,
 });
 
 
 const response_interceptor = axios.create({
-    baseURL: '/api/v1', // More general baseURL
+    baseURL: `${BACKEND_URL}/api/v1`, // More general baseURL
     withCredentials: true,
 });
 const apiClient2 = axios.create({
-    baseURL: 'https://itube-iser.onrender.com/api/v1/videos',
+    baseURL: `${BACKEND_URL}/api/v1/videos`,
     withCredentials: true,
 });
 
