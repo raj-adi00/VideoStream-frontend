@@ -45,7 +45,7 @@ const response_interceptor = axios.create({
     withCredentials: true,
 });
 const apiClient2 = axios.create({
-    baseURL: 'http://localhost:8000/api/v1/videos',
+    baseURL: 'https://itube-iser.onrender.com/api/v1/videos',
     withCredentials: true,
 });
 
