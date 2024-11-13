@@ -1,4 +1,4 @@
-const BACKEND_URL="https://itube-iser.onrender.com"
+const BACKEND_URL = "https://itube-iser.onrender.com"
 
 import axios from 'axios';
 import { apiClient2, apiClient_getUser, response_interceptor } from '../Interceptor/apiClient';
@@ -12,7 +12,7 @@ export class Video {
             const response = await apiClient2.get('', {
                 params: {
                     searchAfter: searchAfter
-                }
+                },
             });
             return response.data;
         } catch (error) {
@@ -52,7 +52,7 @@ export class Video {
 
     async getParticularvideobyId(videoid) {
         try {
-            const details = await axios.get(`${BACKEND_URL}/api/v1/videos/videoid`)
+            const details = await axios.get(`${BACKEND_URL}/api/v1/videos/videoid`, { withCredentials: true })
             if (details) {
                 return details
             }
@@ -64,7 +64,7 @@ export class Video {
 
     async getVideobyVideo_public_id(video_public_id) {
         try {
-            const videoDetails = await axios.get(`${BACKEND_URL}/api/v1/videos/publicid/${video_public_id}`)
+            const videoDetails = await axios.get(`${BACKEND_URL}/api/v1/videos/publicid/${video_public_id}`, { withCredentials: true })
             if (videoDetails.status < 300)
                 return videoDetails
             else
@@ -134,7 +134,7 @@ export class Video {
     }
     async updateView(videoid) {
         try {
-            const updateVideoViews = await (await axios.patch(`${BACKEND_URL}/api/v1/videos/update-view-count/${videoid}`))?.data
+            const updateVideoViews = await (await axios.patch(`${BACKEND_URL}/api/v1/videos/update-view-count/${videoid}`, {}, { withCredentials: true }))?.data
             if (updateVideoViews.statusCode === 200)
                 return updateVideoViews;
             else
@@ -147,7 +147,7 @@ export class Video {
 
     async getMyVideo() {
         try {
-            const myVideos = await axios.get(`${BACKEND_URL}/api/v1/videos/my/personalised-video`)
+            const myVideos = await axios.get(`${BACKEND_URL}/api/v1/videos/my/personalised-video`, { withCredentials: true })
             if (myVideos.status === 200)
                 return myVideos.data
             return handleAxiosError(myVideos)

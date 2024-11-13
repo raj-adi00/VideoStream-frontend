@@ -126,7 +126,8 @@ export class User {
 
     async getUserChannel(username) {
         try {
-            const channel = await axios.get(`${BACKEND_URL}/api/v1/users/c/${username}`, {}, { withCredentials: true })
+            const channel = await axios.get(`${BACKEND_URL}/api/v1/users/c/${username}`, {withCredentials:true})
+            console.log(channel)
             if (channel.status === 200)
                 return channel.data
             else

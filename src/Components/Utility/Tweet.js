@@ -8,7 +8,7 @@ export class Tweets {
 
     async getAllTweets() {
         try {
-            const alltweets = await axios.get(`${BACKEND_URL}/api/v1/tweet/get-tweets`)
+            const alltweets = await axios.get(`${BACKEND_URL}/api/v1/tweet/get-tweets`,{withCredentials:true})
             return alltweets
         } catch (error) {
             console.log("error at Gettin all the tweets", error)
