@@ -76,6 +76,9 @@ const NavBar = ({ isLoggedIn }) => {
                             My videos
                         </NavLink>
                     )}
+                    {isLoggedIn && (
+                        <NavLink to="/chat">Chat</NavLink>
+                    )}
                     {isLoggedIn ? (
                         <button
                             onClick={handleLogout}

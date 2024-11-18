@@ -5,8 +5,8 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   server: {
     proxy: {
-      '/api': 'https://itube-iser.onrender.com'
-      // '/api':'http://localhost:8000'
+      // '/api': 'https://itube-iser.onrender.com'
+      '/api':'http://localhost:8000'
     },
   },
   plugins: [react()],
