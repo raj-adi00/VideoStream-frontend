@@ -9,18 +9,6 @@ import UserSevice from './Utility/User';
 const Card = ({ _id, thumbnail, title, owner, channel_owner, video_public_id, toastMessage }) => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    // const updateViews = () => {
-    //     videoService.updateView(_id)
-    //         .then((res) => {
-    //             if (res.statusCode === 200)
-    //                 navigate(`/${_id}`, { state: { video_public_id } })
-
-    //         })
-    //         .catch((error) => {
-    //             console.log(error)
-    //             dispatch(info(handleAxiosError(error)))
-    //         })
-    // }
     const updateViews = () => {
         videoService.updateView(_id)
             .then((res) => {

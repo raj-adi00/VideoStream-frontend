@@ -77,7 +77,7 @@ const NavBar = ({ isLoggedIn }) => {
                         </NavLink>
                     )}
                     {isLoggedIn && (
-                        <NavLink to="/chat">Chat</NavLink>
+                        <NavLink to="/load-chat">Chat</NavLink>
                     )}
                     {isLoggedIn ? (
                         <button

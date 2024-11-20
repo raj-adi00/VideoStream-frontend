@@ -14,6 +14,7 @@ import Tweet from './Components/Tweet/Tweet.jsx'
 import ChatComponent from './Components/Chat/Chatcomponent.jsx'
 import MyVideo from './Components/My Video/MyVideo.jsx'
 import UserPage from './Components/User/UserPage.jsx'
+import ChatLoadingPage from './Components/Chat/ChatLoadingPage.jsx'
 
 const router = createBrowserRouter([{
   path: '/',
@@ -46,6 +47,9 @@ const router = createBrowserRouter([{
     }, {
       path: "/u/:username",
       element: <UserPage />
+    },{
+      path:'/load-chat',
+      element:<ChatLoadingPage/>
     }
   ]
 }])
