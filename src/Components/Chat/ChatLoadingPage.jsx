@@ -65,6 +65,7 @@ function ChatLoadingPage() {
             name: friendName,
             email: friendEmail,
             avatar: freindAvatar,
+            id: friendId,
           },
           messages,
         };
