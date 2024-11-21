@@ -88,6 +88,10 @@ function ChatComponent() {
         <RightChatBox
           currentUserChats={currentUserChats}
           currentUserSelectedDetails={currentUserSelectedDetails}
+          socket={socket}
+          setAllMessageData={setAllMessageData}
+          allMessageData={allMessageData}
+          setCurrentUserChats={setCurrentUserChats}
         />
       </div>
     </div>

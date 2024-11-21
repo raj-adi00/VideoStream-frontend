@@ -1,12 +1,10 @@
 import React, { useState, useRef } from "react";
 
-const AutoResizeTextarea = () => {
-  const [newMessage, setNewMessage] = useState("");
+const AutoResizeTextarea = ({ setNewMessage, newMessage }) => {
   const textareaRef = useRef(null);
 
   const handleInputChange = (e) => {
     setNewMessage(e.target.value);
-    // Auto-resize logic
     textareaRef.current.style.height = "auto";
     textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
   };

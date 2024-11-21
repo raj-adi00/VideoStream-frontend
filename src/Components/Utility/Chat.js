@@ -39,11 +39,11 @@ export class chat {
       return handleAxiosError(error);
     }
   }
-  async sendMessage(message, receiverId) {
+  async sendMessage({ message, receiverId, senderId }) {
     try {
       const encodedMessage = encodeURIComponent(message);
       const MessageSentStatus = await response_interceptor.post(
-        `/chat/save-message?receiverId=${receiverId}&message=${encodedMessage}`
+        `/chat/save-message?receiverId=${receiverId}&message=${encodedMessage}&senderId=${senderId}`
       );
       if (MessageSentStatus.status < 300) return MessageSentStatus.data;
       else return handleAxiosError(MessageSentStatus);
