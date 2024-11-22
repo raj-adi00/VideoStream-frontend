@@ -7,6 +7,7 @@ import { info } from "../../Store/ErrorMessageSlice";
 import handleAxiosError from "../Frequent/HandleAxiosError";
 import LeftChatBox from "./LeftChatBox";
 import RightChatBox from "./RightChatBox";
+import { useNavigate } from "react-router-dom";
 
 let socket;
 
@@ -19,6 +20,7 @@ function ChatComponent() {
   const [currentUserSelectedDetails, setCurrentUserSelectedDetails] = useState(
     {}
   );
+  const navigate = useNavigate();
   let chatDisplayeduserId = "";
   useEffect(() => {
     chatDisplayeduserId = currentUserSelectedDetails?.id;
@@ -27,9 +29,10 @@ function ChatComponent() {
     }
   }, [currentUserSelectedDetails, allMessageData]);
   useEffect(() => {
-    const userid = user._id;
+    const userid = user?._id;
     if (!userid) {
       dispatch(info("YOu are not logged in"));
+      navigate('/load-chat')
       return;
     }
     const getUserMessage = async () => {
@@ -37,6 +40,7 @@ function ChatComponent() {
         const messageData = localStorage.getItem("chats");
         if (!messageData) {
           dispatch(info("NO chat data found"));
+          navigate('/load-chat')
           return;
         }
         const MessageData = await JSON.parse(messageData);
@@ -44,6 +48,7 @@ function ChatComponent() {
       } catch (error) {
         console.log(error);
         dispatch(info(handleAxiosError(error).message));
+        navigate('/load-chat')
         return;
       }
     };
@@ -59,6 +64,7 @@ function ChatComponent() {
     socket.on("connect_error", (err) => {
       console.error("Connection error:", err.message);
       dispatch(info(handleAxiosError(err)));
+      navigate('/load-chat')
       return;
     });
 

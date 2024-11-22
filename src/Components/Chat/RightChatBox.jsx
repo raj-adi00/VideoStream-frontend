@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import ChatCards from "./ChatCards";
 import SendMessageForm from "./SendMessageForm";
+import "../../App.css";
 
 function RightChatBox({
   currentUserChats,
@@ -12,16 +13,18 @@ function RightChatBox({
   setCurrentUserChats,
 }) {
   const user = useSelector((state) => state.auth.userDetails);
-  // Extract user details if chats are available
-  // console.log(allMessageData?.currentUserSelectedDetails?.id);
-  // console.log(currentUserSelectedDetails.id);
-  // console.log(allMessageData);
-  // console.log(currentUserChats)
+  const chatContainerRef = useRef(null);
+  useEffect(() => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop =
+        chatContainerRef.current.scrollHeight;
+    }
+  }, [currentUserChats]);
   const userDetails = currentUserSelectedDetails.name
     ? {
-        name: currentUserSelectedDetails.name, // Replace with actual data field
+        name: currentUserSelectedDetails.name,
         avatar:
-          currentUserSelectedDetails.avatar || "https://via.placeholder.com/50", // Replace with actual user avatar
+          currentUserSelectedDetails.avatar || "https://via.placeholder.com/50",
       }
     : null;
   return (
@@ -43,7 +46,10 @@ function RightChatBox({
       </div>
 
       {/* Chat Messages Section */}
-      <div className="flex-1 overflow-y-auto p-4">
+      <div
+        className="flex-1 overflow-y-auto hide-scrollbar p-4"
+        ref={chatContainerRef}
+      >
         {currentUserChats?.length ? (
           currentUserChats.map((msg, index) => (
             <ChatCards user={user} key={msg._id || index} msg={msg} />
