@@ -18,7 +18,6 @@ function SendMessageForm({
   const user = useSelector((state) => state.auth.userDetails);
   const dispatch = useDispatch();
   const [sending, setSending] = useState(false);
-  // console.log(currentUserChats)
   const handleSendMessage = async (e) => {
     e.preventDefault();
     if (!newMessage.trim()) {
@@ -45,18 +44,19 @@ function SendMessageForm({
         senderId: user._id,
         receiverId: currentUserSelectedDetails.id,
       });
+      const timestamp = new Date().toISOString();
       if (saveMessageToDatabase.statusCode < 300) {
         socket.emit("sendMessage", {
           message: newMessage,
           receiverId: currentUserSelectedDetails.id,
           senderId: user._id,
+          timestamp,
         });
         const key = currentUserSelectedDetails.id;
         const senderId = user._id;
         const receiverId = currentUserSelectedDetails.id;
         const message = newMessage;
         const isRead = false;
-        const timestamp = new Date().toISOString();
         const MessageSent = {
           message,
           senderId,
@@ -64,14 +64,13 @@ function SendMessageForm({
           isRead,
           timestamp,
         };
-        const PreviousMessageData = { ...allMessageData }; 
+        const PreviousMessageData = { ...allMessageData };
         PreviousMessageData[key].messages = [
           ...PreviousMessageData[key].messages,
           MessageSent,
         ];
         setAllMessageData(PreviousMessageData);
         setCurrentUserChats([...PreviousMessageData[key].messages]);
-        console.log(currentUserChats);
         setNewMessage("");
       } else {
         dispatch(info(handleAxiosError(saveMessageToDatabase).message));

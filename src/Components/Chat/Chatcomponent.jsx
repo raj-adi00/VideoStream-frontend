@@ -19,6 +19,13 @@ function ChatComponent() {
   const [currentUserSelectedDetails, setCurrentUserSelectedDetails] = useState(
     {}
   );
+  let chatDisplayeduserId = "";
+  useEffect(() => {
+    chatDisplayeduserId = currentUserSelectedDetails?.id;
+    if (chatDisplayeduserId) {
+      setCurrentUserChats(allMessageData[chatDisplayeduserId].messages);
+    }
+  }, [currentUserSelectedDetails, allMessageData]);
   useEffect(() => {
     const userid = user._id;
     if (!userid) {
@@ -34,7 +41,6 @@ function ChatComponent() {
         }
         const MessageData = await JSON.parse(messageData);
         setAllMessageData(MessageData);
-        console.log(MessageData);
       } catch (error) {
         console.log(error);
         dispatch(info(handleAxiosError(error).message));
@@ -60,6 +66,36 @@ function ChatComponent() {
       console.log("Disconnected from server.");
       dispatch(info("Disconnected from server"));
     });
+    socket.on(
+      "receiveMessage",
+      ({ message, senderId, receiverId, timestamp }) => {
+        const MessageSent = {
+          message,
+          senderId,
+          receiverId,
+          isRead: false,
+          timestamp,
+        };
+
+        const key = senderId === user._id ? receiverId : senderId;
+
+        // Update allMessageData
+        setAllMessageData((prevData) => {
+          const updatedData = { ...prevData };
+
+          if (!updatedData[key]) {
+            updatedData[key] = { messages: [] }; // Initialize if not present
+          }
+
+          updatedData[key].messages = [
+            ...updatedData[key].messages,
+            MessageSent,
+          ];
+
+          return updatedData;
+        });
+      }
+    );
 
     return () => {
       if (socket) {
@@ -69,6 +105,7 @@ function ChatComponent() {
       }
     };
   }, []);
+
   if (!allMessageData)
     return (
       <div className="flex justify-center items-center">
