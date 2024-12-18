@@ -1,5 +1,7 @@
 // const BACKEND_URL = "http://localhost:8000";
-const BACKEND_URL="https://itube-iser.onrender.com"
+// const BACKEND_URL="https://itube-iser.onrender.com"
+const BACKEND_URL = "videostream-production-3c23.up.railway.app";
+
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { io } from "socket.io-client";
@@ -32,7 +34,7 @@ function ChatComponent() {
     const userid = user?._id;
     if (!userid) {
       dispatch(info("YOu are not logged in"));
-      navigate('/load-chat')
+      navigate("/load-chat");
       return;
     }
     const getUserMessage = async () => {
@@ -40,7 +42,7 @@ function ChatComponent() {
         const messageData = localStorage.getItem("chats");
         if (!messageData) {
           dispatch(info("NO chat data found"));
-          navigate('/load-chat')
+          navigate("/load-chat");
           return;
         }
         const MessageData = await JSON.parse(messageData);
@@ -48,7 +50,7 @@ function ChatComponent() {
       } catch (error) {
         console.log(error);
         dispatch(info(handleAxiosError(error).message));
-        navigate('/load-chat')
+        navigate("/load-chat");
         return;
       }
     };
@@ -64,7 +66,7 @@ function ChatComponent() {
     socket.on("connect_error", (err) => {
       console.error("Connection error:", err.message);
       dispatch(info(handleAxiosError(err)));
-      navigate('/load-chat')
+      navigate("/load-chat");
       return;
     });
 
