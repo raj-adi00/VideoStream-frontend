@@ -15,6 +15,7 @@ import ChatComponent from "./Components/Chat/Chatcomponent.jsx";
 import MyVideo from "./Components/My Video/MyVideo.jsx";
 import UserPage from "./Components/User/UserPage.jsx";
 import ChatLoadingPage from "./Components/Chat/ChatLoadingPage.jsx";
+import AddFriend from "./Components/Chat/AddFriend.jsx";
 
 const router = createBrowserRouter([
   {
@@ -60,6 +61,10 @@ const router = createBrowserRouter([
       {
         path: "/load-chat",
         element: <ChatLoadingPage />,
+      },
+      {
+        path: "/add-friend",
+        element: <AddFriend />,
       },
     ],
   },
