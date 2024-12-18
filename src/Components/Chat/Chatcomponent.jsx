@@ -1,5 +1,5 @@
-const BACKEND_URL = "http://localhost:8000";
-// const BACKEND_URL="https://itube-iser.onrender.com"
+// const BACKEND_URL = "http://localhost:8000";
+const BACKEND_URL="https://itube-iser.onrender.com"
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { io } from "socket.io-client";
