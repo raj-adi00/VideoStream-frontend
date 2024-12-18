@@ -7,7 +7,7 @@ export default defineConfig({
     proxy: {
       // '/api': 'https://itube-iser.onrender.com'
       // '/api':'http://localhost:8000'
-      "/api": "videostream-production-3c23.up.railway.app",
+      "/api": "https://videostream-production-3c23.up.railway.app",
     },
   },
   plugins: [react()],
