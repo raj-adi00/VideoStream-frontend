@@ -7,52 +7,45 @@ import Pagination from "../Pagination/Pagination";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { setLoadingState } from "../Store/authSlice";
+import { info } from "../Store/ErrorMessageSlice";
+import handleAxiosError from "./Frequent/HandleAxiosError";
 function Home() {
   const [allVideo, setAllVideo] = useState([]);
-  const [statusCode, setStatusCode] = useState(200);
-  const [Message, setMessage] = useState("");
-  const [loading, setloading] = useState(false);
   const reduxPage = useSelector((state) => state.homePage.homePage); // Get page from Redux store
   const [page, setPage] = useState(reduxPage); // Initialize local state with reduxPage
   const [searchAfter, setsearchAfter] = useState("");
   const [totalPage, settotalPage] = useState(0);
   const IsBackendReady = useSelector((state) => state.auth.isBackendReady);
+  const dispatch = useDispatch();
   useEffect(() => {
     const loadVideos = async () => {
       if (!IsBackendReady) return;
-      setMessage("");
-      setloading(true);
+      dispatch(setLoadingState(true));
       try {
         const videoData = await videoService.fetchVideos(page);
-        setStatusCode(videoData.statusCode);
-        setMessage(videoData.message);
-        setAllVideo(videoData.data.videos);
-        settotalPage(videoData.data.totalPage);
-        setsearchAfter(videoData.data.searchAfter);
-        if (videoData) {
-          localStorage.setItem(
-            "allvideo",
-            JSON.stringify(videoData.data.videos)
-          );
+        if (videoData.statusCode < 400) {
+          setAllVideo(videoData.data.videos);
+          settotalPage(videoData.data.totalPage);
+          setsearchAfter(videoData.data.searchAfter);
+          if (videoData) {
+            localStorage.setItem(
+              "allvideo",
+              JSON.stringify(videoData.data.videos)
+            );
+          }
+        } else {
+          dispatch(info("Failed to fetch Videos"));
         }
-        setloading(false);
       } catch (error) {
         console.error("Error loading videos:", error);
-        setStatusCode(videoData.statusCode || 500);
-        setMessage(videoData.message || "Something went wrong");
-        setloading(false);
+        dispatch(info(handleAxiosError(error).message));
+      } finally {
+        dispatch(setLoadingState(false));
       }
     };
     loadVideos();
-  }, [page, IsBackendReady]);
-  // if (loading)
-  //   return <Loader />
-
-  // else if (statusCode >= 400)
-  //   return (
-  //     <ErrorPage statusCode={statusCode} message={Message} />
-  //   )
-  // else
+  }, [page,IsBackendReady]);
   return (
     <div className="flex flex-col gap-3 max-w-screen overflow-hidden">
       <div className="flex gap-11 flex-wrap px-3 mt-16">
