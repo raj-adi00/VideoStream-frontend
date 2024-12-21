@@ -42,7 +42,6 @@ function App() {
     initializeApp();
   }, []);
   {
-    console.log(loading || LoadingState);
   }
   return (
     <>
