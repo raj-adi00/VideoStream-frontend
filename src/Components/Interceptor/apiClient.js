@@ -1,13 +1,13 @@
 // const BACKEND_URL="https://itube-iser.onrender.com"
-const BACKEND_URL="http://localhost:8000"
-// const BACKEND_URL = "https://videostream-production-3c23.up.railway.app";
+// const BACKEND_URL="http://localhost:8000"
+const BACKEND_URL = "https://videostream-production-3c23.up.railway.app";
 
 import axios from 'axios';
 import UserSevice from '../Utility/User.js';
 
 const responseInterceptor = async (error) => {
     const originalRequest = error.config;
-    if (error.response.status === 401 && !originalRequest._retry) {
+    if ((error?.response?.status === 401 || error?.data?.statusCode === 401) && !originalRequest._retry) {
         originalRequest._retry = true;
 
         const refreshResponse = await UserSevice.refreshAccessToken();
