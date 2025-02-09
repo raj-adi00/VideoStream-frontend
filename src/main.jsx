@@ -34,7 +34,7 @@ const router = createBrowserRouter([
         element: <Login />,
       },
       {
-        path: "/video/:id",
+        path: "/:id",
         element: <VideoPage />,
       },
       {
