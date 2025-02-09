@@ -6,7 +6,6 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./Components/Home";
 import { Provider } from "react-redux";
 import store from "./Store/store.js";
-import Register from "./Components/Register";
 import Login from "./Components/Login";
 import VideoPage from "./Components/VideoPage";
 import UploadVideoForm from "./Components/UploadVideoForm";
@@ -16,7 +15,7 @@ import MyVideo from "./Components/My Video/MyVideo";
 import UserPage from "./Components/User/UserPage";
 import ChatLoadingPage from "./Components/Chat/ChatLoadingPage";
 import AddFriend from "./Components/Chat/AddFriend";
-
+import RegisterPage from './Components/Register'
 const router = createBrowserRouter([
   {
     path: "/",
@@ -28,7 +27,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/register",
-        element: <Register />,
+        element: <RegisterPage />,
       },
       {
         path: "/login",
