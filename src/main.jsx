@@ -15,7 +15,7 @@ import MyVideo from "./Components/My Video/MyVideo";
 import UserPage from "./Components/User/UserPage";
 import ChatLoadingPage from "./Components/Chat/ChatLoadingPage";
 import AddFriend from "./Components/Chat/AddFriend";
-import RegisterPage from './Components/Register'
+import RegisterPage from "./Components/Register";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -34,7 +34,7 @@ const router = createBrowserRouter([
         element: <Login />,
       },
       {
-        path: "/:id",
+        path: "/video/:id",
         element: <VideoPage />,
       },
       {
